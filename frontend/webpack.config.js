@@ -9,6 +9,9 @@ module.exports = {
     publicPath: '/',
     filename: 'bundle.js',
   },
+  devServer: {
+    historyApiFallback: true,
+  },
   resolve: {
     alias: {
       components: path.resolve(__dirname, 'src'),
