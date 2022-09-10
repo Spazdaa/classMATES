@@ -1,5 +1,4 @@
-from os import stat
-from rest_framework import viewsets, generics, status
+from rest_framework import viewsets, status
 from rest_framework.views import APIView
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.authtoken.models import Token
@@ -18,6 +17,7 @@ class ClassViewSet(viewsets.ModelViewSet):
             return Response({
                 "message": "Wrong or missing content type. Expects 'text/calendar/"
             }, status=status.HTTP_400_BAD_REQUEST)
+
         parseCalendar(request.data)
 
 class RegisterAPI(APIView):
@@ -78,9 +78,10 @@ class LoginAPI(APIView):
             user = AppUsers.objects.get(username=username, password=password)
         except AppUsers.DoesNotExist:
             return Response({"message":"Unauthorized User"},status=status.HTTP_401_UNAUTHORIZED)
-
+        
+        token, _ = Token.objects.get_or_create(user=user)
         return Response({
-            "token": Token.objects.get_or_create(user=user).key
+            "token": token.key
         }, status=status.HTTP_200_OK)
 
     def __checkFieldsValid(self, requestData: dict) -> bool:
