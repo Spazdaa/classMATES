@@ -44,7 +44,7 @@ class RegisterAPI(APIView):
         user = AppUsers.objects.create(**newUser)
 
         contact = {
-            "uid": userid,
+            "uid": user,
             "contact_id": uuid.uuid4(),
             "contact_info": request.data.get("contact_info"),
             "contact_type": request.data.get("contact_type"),
@@ -53,7 +53,7 @@ class RegisterAPI(APIView):
         Contact.objects.create(**contact)
 
         return Response({
-            "token": Token.objects.create(user=user)
+            "token": Token.objects.create(user=user).key
         },status=status.HTTP_201_CREATED)
 
     def __checkFieldsValid(self, requestData: dict) -> bool:
@@ -79,5 +79,5 @@ class LoginAPI(generics.GenericAPIView):
             return Response({"message":"Unauthorized User"},status=status.HTTP_401_UNAUTHORIZED)
 
         return Response({
-            "token": Token.objects.create(user=user)
+            "token": Token.objects.create(user=user).key
         }, status=status.HTTP_200_OK)
