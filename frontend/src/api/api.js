@@ -28,6 +28,12 @@ const api = {
     };
     return response.data;
   },
+
+  async uploadIcs() {
+    // const response = await axiosClient.post('/upload');
+    // eslint-disable-next-line no-console
+    console.log('upload ics');
+  },
 };
 
 export default api;
