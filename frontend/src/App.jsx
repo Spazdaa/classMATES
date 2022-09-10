@@ -21,8 +21,15 @@ function App() {
       }}
       >
         <ClassList />
-        <MatchList matches={matches} />
-        <UploadIcs />
+        <Box sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          width: '100%',
+        }}
+        >
+          <MatchList matches={matches} />
+          <UploadIcs />
+        </Box>
       </Box>
     </div>
   );
