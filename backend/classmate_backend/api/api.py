@@ -1,18 +1,29 @@
 from os import stat
 from rest_framework import viewsets, generics, status
+from rest_framework.views import APIView
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.authtoken.models import Token
+from rest_framework.request import Request
 from rest_framework.response import Response
 from api.serializers import LoginSerializer
 from api.models import AppUsers, Contact
+from utils.icalendarparser import Class, parseCalendar
 import uuid
 
 class ClassViewSet(viewsets.ModelViewSet):
     authentication_classes = (TokenAuthentication,)
 
-class RegisterAPI(generics.GenericAPIView):
+    def put(self, request: Request) -> Response:
+        # Check request content type
+        if request.content_type != "text/calendar":
+            return Response({
+                "message": "Wrong or missing content type. Expects 'text/calendar/"
+            }, status=status.HTTP_400_BAD_REQUEST)
+        parseCalendar(request.data)
 
-    def post(self, request, *args, **kwargs) -> Response:
+class RegisterAPI(APIView):
+
+    def post(self, request: Request, *args, **kwargs) -> Response:
         if not self.__checkFieldsValid(requestData=request.data):
             return Response({
                 "message":"incomplete json field. Expect 'username', 'password', 'contact_info', 'contact_type'"
@@ -56,7 +67,7 @@ class RegisterAPI(generics.GenericAPIView):
 class LoginAPI(generics.GenericAPIView):
     serializer_class = LoginSerializer
 
-    def post(self, request, *args, **kwargs) -> Response:
+    def post(self, request: Request, *args, **kwargs) -> Response:
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         username = serializer.validated_data['username']
