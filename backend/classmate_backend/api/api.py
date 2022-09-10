@@ -64,14 +64,16 @@ class RegisterAPI(APIView):
     def __checkUserNameValid(self, username: str) -> bool:
         return not AppUsers.objects.filter(username=username).exists()
 
-class LoginAPI(generics.GenericAPIView):
-    serializer_class = LoginSerializer
+class LoginAPI(APIView):
 
     def post(self, request: Request, *args, **kwargs) -> Response:
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        username = serializer.validated_data['username']
-        password = serializer.validated_data['password']
+        if not self.__checkFieldsValid(requestData=request.data):
+            return Response({
+                "message":"incomplete json field. Expect 'username', 'password'"
+            }, status=status.HTTP_400_BAD_REQUEST)
+
+        username = request.data['username']
+        password = request.data['password']
 
         try:
             user = AppUsers.objects.get(username=username, password=password)
@@ -79,5 +81,10 @@ class LoginAPI(generics.GenericAPIView):
             return Response({"message":"Unauthorized User"},status=status.HTTP_401_UNAUTHORIZED)
 
         return Response({
-            "token": Token.objects.create(user=user).key
+            "token": Token.objects.get_or_create(user=user).key
         }, status=status.HTTP_200_OK)
+
+    def __checkFieldsValid(self, requestData: dict) -> bool:
+        expected_fields = {"username", "password"}
+
+        return expected_fields.issubset(requestData.keys())
