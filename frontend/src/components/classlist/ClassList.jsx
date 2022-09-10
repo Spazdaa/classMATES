@@ -16,11 +16,11 @@ export default function ClassList() {
   if (!post) return null;
 
   return (
-    <>
+    <div className="classList">
       <h1>My Classes</h1>
       {
         post.map((myClass) => <Class name={myClass.name} lec={myClass.username} />)
       }
-    </>
+    </div>
   );
 }
