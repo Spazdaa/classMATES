@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Box } from '@mui/material';
 import api from './api/api';
 import MatchList from './components/MatchList';
 import ClassList from './components/classlist/ClassList';
@@ -14,9 +15,15 @@ function App() {
 
   return (
     <div className="App">
-      <ClassList />
-      <MatchList matches={matches} />
-      <UploadIcs />
+      <Box sx={{
+        display: 'flex',
+        justifyContent: 'space-between',
+      }}
+      >
+        <ClassList />
+        <MatchList matches={matches} />
+        <UploadIcs />
+      </Box>
     </div>
   );
 }
