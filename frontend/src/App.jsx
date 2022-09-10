@@ -4,6 +4,8 @@ import api from './api/api';
 import MatchList from './components/MatchList';
 import ClassList from './components/classlist/ClassList';
 import UploadIcs from './components/UploadIcs';
+import './App.css';
+import MyInfo from './components/myinfo/MyInfo';
 
 function App() {
   const [matches, setMatches] = useState([]);
@@ -20,7 +22,17 @@ function App() {
         justifyContent: 'space-between',
       }}
       >
-        <ClassList />
+        <Box sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          padding: '10px',
+          paddingTop: '0px',
+        }}
+        >
+          <MyInfo />
+          <ClassList />
+        </Box>
+
         <Box sx={{
           display: 'flex',
           flexDirection: 'column',

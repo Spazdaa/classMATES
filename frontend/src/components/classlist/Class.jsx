@@ -9,8 +9,8 @@ export default function Class(props) {
   const { name, lec } = props;
   return (
     <Card className="card">
-      <CardContent>
-        <Typography variant="h5" component="div" className="classheader">
+      <CardContent className="content">
+        <Typography variant="h6" component="div" className="classheader">
           <b>{name}</b>
         </Typography>
         <Typography color="text.secondary">

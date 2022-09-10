@@ -1,13 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Box, Paper } from '@mui/material';
+import { Paper } from '@mui/material';
 import { Match, MatchInfo } from './Match';
 
 export default function MatchList(props) {
   const { matches } = props;
   return (
-    <Box sx={{
-      height: '25%',
+    <Paper sx={{
+      backgroundColor: 'grey.100',
+      display: 'flex',
+      flexDirection: 'column',
+      marginLeft: '20px',
+      width: '100%',
       overflowY: 'scroll',
       '&::-webkit-scrollbar': {
         display: null,
@@ -24,7 +28,7 @@ export default function MatchList(props) {
           <Match key={match.uid} match={match} />
         ))}
       </Paper>
-    </Box>
+    </Paper>
   );
 }
 
