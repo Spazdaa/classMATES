@@ -46,7 +46,7 @@ class Class:
 def parseCalendar(ics: str) -> list:
     summaries = set()
 
-    calendar: Calendar = Calendar.from_ical(g)
+    calendar: Calendar = Calendar.from_ical(ics)
     for component in calendar.walk():
         if component.name == "VEVENT":
             summary = str(component.get("SUMMARY"))
