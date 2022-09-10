@@ -6,15 +6,17 @@ import './MyInfo.css';
 
 export default function MyInfo() {
   return (
-    <Card className="card">
+    <Card className="infocard" style={{ backgroundColor: '#8FD14F' }}>
       <CardContent>
-        <Typography color="text.secondary">
+        <Typography color="white">
           Welcome,
         </Typography>
-        <Typography variant="h4" component="div" className="classheader">
+        <Typography variant="h4" component="div" className="name">
           <b>John Doe</b>
         </Typography>
-        My Contact info
+        <Typography color="white">
+          My Contact info
+        </Typography>
       </CardContent>
     </Card>
   );
