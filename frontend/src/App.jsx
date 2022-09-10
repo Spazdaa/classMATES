@@ -37,6 +37,8 @@ function App() {
           display: 'flex',
           flexDirection: 'column',
           width: '100%',
+          height: '93vh',
+          justifyContent: 'space-between',
         }}
         >
           <MatchList matches={matches} />
