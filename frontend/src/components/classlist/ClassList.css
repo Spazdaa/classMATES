@@ -3,3 +3,8 @@
     flex-direction: 'column';
     width: 40%;
 }
+
+h2 {
+    color: white;
+    text-align: center;
+}

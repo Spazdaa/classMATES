@@ -1,6 +1,7 @@
 .card {
     margin-bottom: 20px;
-    width: 100%;
+    width: 90%;
+    padding: 10px;
 }
 
 .classheader {

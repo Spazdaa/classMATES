@@ -17,7 +17,7 @@ export default function ClassList() {
 
   return (
     <div className="classList">
-      <h1>My Classes</h1>
+      <h2>My Classes</h2>
       {
         post.map((myClass) => <Class name={myClass.name} lec={myClass.username} />)
       }

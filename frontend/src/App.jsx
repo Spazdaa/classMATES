@@ -3,6 +3,7 @@ import { Box } from '@mui/material';
 import api from './api/api';
 import MatchList from './components/MatchList';
 import ClassList from './components/classlist/ClassList';
+import './App.css';
 
 function App() {
   const [matches, setMatches] = useState([]);
