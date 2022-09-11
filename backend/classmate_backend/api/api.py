@@ -24,7 +24,7 @@ class MatchAPI(APIView):
         page = request.GET.get("page", None)
         size = request.GET.get("size", None)
         
-        matches = match(request.user.id)
+        matches = match(request.user.pk)
         if (page == None or size == None):
             items = matches
         else:
