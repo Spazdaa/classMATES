@@ -7,9 +7,10 @@ import {
 } from 'react-router-dom';
 
 import Dashboard from './components/Dashboard/Dashboard';
-import Login from './components/Login/Login';
+// import Login from './components/Login/Login';
 import Logout from './components/Logout/Logout';
 import Preferences from './components/Preferences/Preferences';
+import LoginRegisterTabbed from './components/LoginRegisterTabbed/LoginRegisterTabbed';
 import useToken from './components/App/useToken';
 
 function App() {
@@ -17,8 +18,7 @@ function App() {
 
   if (!token) {
     return (
-      <Login setToken={setToken} />
-
+      <LoginRegisterTabbed setToken={setToken} />
     );
   }
 
