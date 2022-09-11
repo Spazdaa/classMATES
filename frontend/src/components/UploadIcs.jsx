@@ -25,8 +25,8 @@ export default function UploadIcs() {
       component="label"
       sx={{
         height: '15%',
-        backgroundColor: '#49306B',
-        marginLeft: '20px',
+        backgroundColor: '#8FD14F',
+        marginLeft: '45px',
         ':hover': {
           bgcolor: '#FF8966',
         },

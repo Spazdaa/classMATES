@@ -11,8 +11,7 @@ export default function MatchList(props) {
       backgroundColor: 'grey.100',
       display: 'flex',
       flexDirection: 'column',
-      marginLeft: '20px',
-      width: '98%',
+      marginLeft: '50px',
       height: '75%',
       overflowY: 'scroll',
       '&::-webkit-scrollbar': {
