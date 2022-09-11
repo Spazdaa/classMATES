@@ -1,11 +1,16 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
 import { Paper } from '@mui/material';
 import Match from './Match';
-import { MatchInfo } from '../api/api';
+import api from '../api/api';
 
-export default function MatchList(props) {
-  const { matches } = props;
+export default function MatchList() {
+  const [matches, setMatches] = useState([]);
+  useEffect(async () => {
+    await api.getMatches(1, 5).then((response) => {
+      setMatches(response);
+    });
+  }, []);
+
   return (
     <Paper sx={{
       backgroundColor: 'grey.100',
@@ -25,14 +30,11 @@ export default function MatchList(props) {
         flexDirection: 'column',
       }}
       >
-        {matches.map((match) => (
-          <Match key={match.uid} match={match} />
-        ))}
+        {matches.map((match) => {
+          const parsedMatch = JSON.parse(match);
+          return <Match key={parsedMatch.uid} match={parsedMatch} />;
+        })}
       </Paper>
     </Paper>
   );
 }
-
-MatchList.propTypes = {
-  matches: PropTypes.arrayOf(PropTypes.instanceOf(MatchInfo)).isRequired,
-};

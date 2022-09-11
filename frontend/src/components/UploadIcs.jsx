@@ -6,14 +6,10 @@ export default function UploadIcs() {
   const [filename, setFilename] = React.useState('No file chosen');
 
   useEffect(() => {
-    // eslint-disable-next-line no-console
-    console.log(filename);
     const reader = new FileReader();
     if (filename !== 'No file chosen') {
       reader.readAsText(filename);
       reader.onload = async (e) => {
-        // eslint-disable-next-line no-console
-        console.log(e.target.result);
         await api.uploadIcs(e.target.result);
       };
     }
