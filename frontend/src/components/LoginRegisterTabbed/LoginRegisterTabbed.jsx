@@ -78,10 +78,13 @@ export default function LoginRegisterTabbed({ setToken }) {
 
   const [username, setUserName] = useState();
   const [password, setPassword] = useState();
+  const [confirmPassword, setConfirmPassword] = useState();
   // eslint-disable-next-line camelcase
   const [contact_type, setContactType] = useState();
   // eslint-disable-next-line camelcase
   const [contact_info, setContactInfo] = useState();
+
+  const [error, setError] = useState(false);
 
   const handleSubmitLogin = async (e) => {
     e.preventDefault();
@@ -89,18 +92,34 @@ export default function LoginRegisterTabbed({ setToken }) {
       username,
       password,
     });
-    setToken(token);
+
+    if (token.message) {
+      setError(true);
+    } else {
+      setToken(token);
+      setError(false);
+    }
   };
 
   const handleSubmitRegister = async (e) => {
     e.preventDefault();
-    const token = await registerUser({
-      username,
-      password,
-      contact_type,
-      contact_info,
-    });
-    setToken(token);
+    if (password === confirmPassword) {
+      const token = await registerUser({
+        username,
+        password,
+        contact_type,
+        contact_info,
+      });
+
+      if (token.message) {
+        setError(true);
+      } else {
+        setToken(token);
+        setError(false);
+      }
+    } else {
+      setError(true);
+    }
   };
 
   return (
@@ -119,6 +138,7 @@ export default function LoginRegisterTabbed({ setToken }) {
         </Box>
         <TabPanel value={value} index={0}>
           <h2>Please Log In</h2>
+          {error && <Typography variant="subtitle2" color="red">Error</Typography>}
           <form onSubmit={handleSubmitLogin} className="loginform">
             <label>
               <p>Username</p>
@@ -147,6 +167,7 @@ export default function LoginRegisterTabbed({ setToken }) {
         </TabPanel>
         <TabPanel value={value} index={1}>
           <h2>Please Sign up</h2>
+          {error && <Typography variant="subtitle2" color="red">Error</Typography>}
           <form onSubmit={handleSubmitRegister} className="loginform">
             <label>
               <p>Username</p>
@@ -155,6 +176,10 @@ export default function LoginRegisterTabbed({ setToken }) {
             <label>
               <p>Password</p>
               <input type="password" onChange={(e) => setPassword(e.target.value)} />
+            </label>
+            <label>
+              <p>Confirm Password</p>
+              <input type="password" onChange={(e) => setConfirmPassword(e.target.value)} />
             </label>
             <label>
               <p>Contact Type</p>
