@@ -3,7 +3,7 @@ from django.forms.models import model_to_dict
 import json
 from typing import List
 
-class Match:
+class MatchPercentage:
     def __init__(self, uid, username, contact_info, contact_type, percentage) -> None:
         self.uid = uid
         self.username = username
@@ -25,7 +25,7 @@ class Match:
     def __repr__(self) -> str:
         return str(self)
 
-def match(ruid) -> List[Match]:
+def matchPercent(ruid) -> List[MatchPercentage]:
     # query the classes that the user takes
     userClassesAllSec = Courses.objects.filter(uid=ruid).values("course", "section")
     userClassesSecOnly = Courses.objects.filter(uid=ruid).values("course")
@@ -46,7 +46,7 @@ def match(ruid) -> List[Match]:
             contact_info = contacts["contact_info"]
             contact_type = contacts["contact_type"]
 
-            match = Match(uid=str(user.pk), username=user.username, contact_info=contact_info, contact_type=contact_type, percentage=percentage)
+            match = MatchPercentage(uid=str(user.pk), username=user.username, contact_info=contact_info, contact_type=contact_type, percentage=percentage)
             returnList.append(match)
 
     return returnList
