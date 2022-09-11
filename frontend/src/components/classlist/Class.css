@@ -1,8 +1,9 @@
 .card {
     margin-bottom: 7px;
-    min-width: 300px;
-    width: 100%;
+    width: 90%;
+    margin: 8px;
     padding: 5px;
+    height: fit-content;
 }
 
 .content {

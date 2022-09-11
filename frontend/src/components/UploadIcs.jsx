@@ -20,7 +20,7 @@ export default function UploadIcs() {
   }, [filename]);
 
   return (
-    <Button variant="contained" component="label" sx={{ height: 100, mt: 4, backgroundColor: 'green' }}>
+    <Button variant="contained" component="label" sx={{ height: '15%', backgroundColor: '#8FD14F', marginLeft: '20px' }}>
       {'Add your schedule >///<'}
       <span>
         <input hidden accept=".ics" type="file" onChange={(e) => { setFilename(e.target.files[0]); }} />

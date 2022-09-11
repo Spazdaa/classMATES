@@ -1,8 +1,10 @@
 .classList {
-    margin-bottom: 5px;
+
     display: 'flex';
     flex-direction: 'column';
     width: 100%;
+    height: fit-content;
+    overflow-y:hidden;
 }
 
 h2 {

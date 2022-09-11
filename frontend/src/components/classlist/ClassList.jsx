@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import { Paper } from '@mui/material';
 import Class from './Class';
 import './ClassList.css';
 
@@ -16,11 +17,22 @@ export default function ClassList() {
   if (!post) return null;
 
   return (
-    <div className="classList">
+    <Paper
+      className="classList"
+      sx={{
+        backgroundColor: 'grey.100',
+        display: 'flex',
+        flexDirection: 'column',
+        width: '100%',
+        marginTop: '15px',
+      }}
+    >
       <h2>My Classes</h2>
-      {
-        post.map((myClass) => <Class name={myClass.name} lec={myClass.username} />)
+      <box>
+        {
+        post.slice(0, 6).map((myClass) => <Class name={myClass.name} lec={myClass.username} />)
       }
-    </div>
+      </box>
+    </Paper>
   );
 }

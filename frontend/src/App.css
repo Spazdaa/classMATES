@@ -1,5 +1,6 @@
 body {
     font-family: 'Open Sans', sans-serif;
-    background-color: whitesmoke;
+    background-color: white;
     padding: 10px;
+    overflow: hidden;
 }
