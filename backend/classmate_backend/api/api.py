@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.authentication import TokenAuthentication
@@ -9,6 +10,27 @@ from api.models import AppUsers, Contact, Courses
 from utils.icalendarparser import parseCalendar
 from utils.match import match
 import uuid
+
+class MatchAPI(APIView):
+    """
+        API for getting matches
+    """
+    
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated)
+
+    def get(self, request: Request):
+
+        page = request.GET.get("page", None)
+        size = request.GET.get("size", None)
+        
+        matches = match()
+        if (page == None or size == None):
+            items = matches
+        else:
+            paginator = Paginator(matches, size)
+            items = paginator.get_page(page).object_list
+
 
 class CalendarAPI(APIView):
     """
@@ -41,7 +63,7 @@ class CalendarAPI(APIView):
         for c in classes:
             course = c.get_course()
             section = c.get_section()
-            Courses.objects.get_or_create(course=course, section=section, user=user)
+            Courses.objects.get_or_create(course=course, section=section, uid=user)
         
         return Response(status=status.HTTP_200_OK)
         
