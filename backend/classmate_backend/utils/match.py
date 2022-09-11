@@ -70,7 +70,7 @@ def matchPercent(ruid) -> List[MatchPercentage]:
     # query the classes that the user takes
     userClassesAllSec = Courses.objects.filter(uid=ruid).values("course", "section")
     userClassesCorOnly = Courses.objects.filter(uid=ruid).values("course")
-    allUsers = AppUsers.objects.all()
+    allUsers = AppUsers.objects.exclude(uid=ruid).all()
 
     returnList = list()
     for user in allUsers:
