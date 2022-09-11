@@ -48,7 +48,7 @@ class CalendarAPI(APIView):
     authentication_classes = [TokenAuthentication,]
     permission_classes = [IsAuthenticated,]
 
-    def put(self, request: Request) -> Response:
+    def put(self, request) -> Response:
         # Check request content type
         # if request.content_type != "text/plain":
         #     return Response({
@@ -56,7 +56,7 @@ class CalendarAPI(APIView):
         #     }, status=status.HTTP_400_BAD_REQUEST)
 
         try:
-            classes = parseCalendar(str(request.data))
+            classes = parseCalendar(request.body.decode('utf-8'))
         except ValueError:
             return Response({
                 "message": "wrong format for calendar file"
