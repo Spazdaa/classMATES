@@ -11,6 +11,7 @@ export default function UploadIcs() {
       reader.readAsText(filename);
       reader.onload = async (e) => {
         await api.uploadIcs(e.target.result);
+        window.location.reload();
       };
     }
   }, [filename]);
