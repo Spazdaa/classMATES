@@ -28,11 +28,11 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 CORS_ALLOWED_ORIGINS = [
-    'http://localhost:8000',
+    'http://localhost',
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    'http://localhost:8000',
+    'http://localhost',
 ]
 
 AUTH_USER_MODEL = 'api.AppUsers'
