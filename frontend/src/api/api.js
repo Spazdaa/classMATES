@@ -20,7 +20,7 @@ export class MatchInfo {
 // });
 
 const token = localStorage.getItem('token');
-axios.defaults.headers.common.Authorization = `Token ${JSON.parse(token).token || ''}`;
+axios.defaults.headers.common.Authorization = `Token ${JSON.parse(token)?.token || ''}`;
 
 const api = {
   async getMatches(page, size) {
