@@ -123,6 +123,10 @@ export default function LoginRegisterTabbed({ setToken }) {
     }
   };
 
+  const taglines = ['Please Don\'t Use Us as a Dating App', 'We Are Definitely Not Tinder for Students', 'Find, uh, Friends. Yes. Just Friends.', 'Find Friends in the Same Classes!', 'If You Want to Date, Please Use eClass', 'Our Name is NOT an Innuendo'];
+  const random = Math.floor(Math.random() * taglines.length);
+  const tagline = taglines[random];
+
   return (
     <Box sx={{ width: '100%' }} className="login">
       <Paper className="logincard" sx={{ boxShadow: 5 }}>
@@ -130,7 +134,7 @@ export default function LoginRegisterTabbed({ setToken }) {
           Class
           <span style={{ color: '#8FD14F' }}>MATES</span>
         </h1>
-        <h5>Please Don&apos;t Use Us as a Dating App</h5>
+        <h5>{tagline}</h5>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
           <Tabs centered value={value} onChange={handleChange} aria-label="basic tabs example" textColor="#8FD14F" TabIndicatorProps={{ style: { backgroundColor: '#8FD14F' } }}>
             <Tab label="Login" {...a11yProps(0)} />
