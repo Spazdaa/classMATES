@@ -9,7 +9,7 @@ import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import './LoginRegisterTabbed.css';
-import { Button } from '@mui/material';
+import { Button, Paper } from '@mui/material';
 
 function TabPanel(props) {
   const {
@@ -105,81 +105,83 @@ export default function LoginRegisterTabbed({ setToken }) {
 
   return (
     <Box sx={{ width: '100%' }} className="login">
-      <h1 className="logo">
-        Class
-        <span style={{ color: '#8FD14F' }}>MATES</span>
-      </h1>
-      <h5>Please Don&apos;t Use Us as a Dating App</h5>
-      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" textColor="#8FD14F" TabIndicatorProps={{ style: { backgroundColor: '#8FD14F' } }}>
-          <Tab label="Login" {...a11yProps(0)} />
-          <Tab label="Sign Up" {...a11yProps(1)} />
-        </Tabs>
-      </Box>
-      <TabPanel value={value} index={0}>
-        <h2>Please Log In</h2>
-        <form onSubmit={handleSubmitLogin} className="loginform">
-          <label>
-            <p>Username</p>
-            <input type="text" onChange={(e) => setUserName(e.target.value)} />
-          </label>
-          <label>
-            <p>Password</p>
-            <input type="password" onChange={(e) => setPassword(e.target.value)} />
-          </label>
-          <div>
-            <Button
-              type="submit"
-              variant="contained"
-              className="submitbutton"
-              sx={{
-                backgroundColor: '#8FD14F',
-                ':hover': {
-                  bgcolor: '#FF8966',
-                },
-              }}
-            >
-              Log in
-            </Button>
-          </div>
-        </form>
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-        <h2>Please Sign up</h2>
-        <form onSubmit={handleSubmitRegister} className="loginform">
-          <label>
-            <p>Username</p>
-            <input type="text" onChange={(e) => setUserName(e.target.value)} />
-          </label>
-          <label>
-            <p>Password</p>
-            <input type="password" onChange={(e) => setPassword(e.target.value)} />
-          </label>
-          <label>
-            <p>Contact Type</p>
-            <input type="text" onChange={(e) => setContactType(e.target.value)} />
-          </label>
-          <label>
-            <p>Contact Info</p>
-            <input type="text" onChange={(e) => setContactInfo(e.target.value)} />
-          </label>
-          <div>
-            <Button
-              type="submit"
-              variant="contained"
-              className="submitbutton"
-              sx={{
-                backgroundColor: '#8FD14F',
-                ':hover': {
-                  bgcolor: '#FF8966',
-                },
-              }}
-            >
-              Sign up
-            </Button>
-          </div>
-        </form>
-      </TabPanel>
+      <Paper className="logincard" sx={{ boxShadow: 5 }}>
+        <h1 className="logo">
+          Class
+          <span style={{ color: '#8FD14F' }}>MATES</span>
+        </h1>
+        <h5>Please Don&apos;t Use Us as a Dating App</h5>
+        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+          <Tabs centered value={value} onChange={handleChange} aria-label="basic tabs example" textColor="#8FD14F" TabIndicatorProps={{ style: { backgroundColor: '#8FD14F' } }}>
+            <Tab label="Login" {...a11yProps(0)} />
+            <Tab label="Sign Up" {...a11yProps(1)} />
+          </Tabs>
+        </Box>
+        <TabPanel value={value} index={0}>
+          <h2>Please Log In</h2>
+          <form onSubmit={handleSubmitLogin} className="loginform">
+            <label>
+              <p>Username</p>
+              <input type="text" onChange={(e) => setUserName(e.target.value)} />
+            </label>
+            <label>
+              <p>Password</p>
+              <input type="password" onChange={(e) => setPassword(e.target.value)} />
+            </label>
+            <div>
+              <Button
+                type="submit"
+                variant="contained"
+                className="submitbutton"
+                sx={{
+                  backgroundColor: '#FF8966',
+                  ':hover': {
+                    bgcolor: '#49306B',
+                  },
+                }}
+              >
+                Log in
+              </Button>
+            </div>
+          </form>
+        </TabPanel>
+        <TabPanel value={value} index={1}>
+          <h2>Please Sign up</h2>
+          <form onSubmit={handleSubmitRegister} className="loginform">
+            <label>
+              <p>Username</p>
+              <input type="text" onChange={(e) => setUserName(e.target.value)} />
+            </label>
+            <label>
+              <p>Password</p>
+              <input type="password" onChange={(e) => setPassword(e.target.value)} />
+            </label>
+            <label>
+              <p>Contact Type</p>
+              <input type="text" onChange={(e) => setContactType(e.target.value)} />
+            </label>
+            <label>
+              <p>Contact Info</p>
+              <input type="text" onChange={(e) => setContactInfo(e.target.value)} />
+            </label>
+            <div>
+              <Button
+                type="submit"
+                variant="contained"
+                className="submitbutton"
+                sx={{
+                  backgroundColor: '#FF8966',
+                  ':hover': {
+                    bgcolor: '#49306B',
+                  },
+                }}
+              >
+                Sign up
+              </Button>
+            </div>
+          </form>
+        </TabPanel>
+      </Paper>
     </Box>
   );
 }
