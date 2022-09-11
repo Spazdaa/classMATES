@@ -4,11 +4,16 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework.authtoken.models import Token
 from rest_framework.request import Request
 from rest_framework.response import Response
-from api.models import AppUsers, Contact
-from utils.icalendarparser import Class, parseCalendar
+from api.models import AppUsers, Contact, Courses
+from utils.icalendarparser import parseCalendar
+from utils.match import match
 import uuid
 
-class ClassViewSet(viewsets.ModelViewSet):
+class CalendarViewSet(viewsets.ModelViewSet):
+    """
+        API for uploading user calendar
+    """
+    
     authentication_classes = (TokenAuthentication,)
 
     def put(self, request: Request) -> Response:
@@ -18,9 +23,31 @@ class ClassViewSet(viewsets.ModelViewSet):
                 "message": "Wrong or missing content type. Expects 'text/calendar/"
             }, status=status.HTTP_400_BAD_REQUEST)
 
-        parseCalendar(request.data)
+        try:
+            classes = parseCalendar(request.data)
+        except ValueError:
+            return Response({
+                "message": "wrong format for calendar file"
+            }, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            return Response({
+                "error": e.args
+            }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+        user = request.user
+        
+        for c in classes:
+            course = c.get_course()
+            section = c.get_section()
+            Courses.objects.get_or_create(course=course, section=section, user=user)
+        
+        return Response(status=status.HTTP_200_OK)
+        
 
 class RegisterAPI(APIView):
+    """
+        API for registering new user.
+    """
 
     def post(self, request: Request, *args, **kwargs) -> Response:
         if not self.__checkFieldsValid(requestData=request.data):
@@ -64,6 +91,9 @@ class RegisterAPI(APIView):
         return not AppUsers.objects.filter(username=username).exists()
 
 class LoginAPI(APIView):
+    """
+        API for loggin in existing users.
+    """
 
     def post(self, request: Request, *args, **kwargs) -> Response:
         if not self.__checkFieldsValid(requestData=request.data):

@@ -1,3 +1,4 @@
+from typing import List
 from icalendar import Calendar
 
 class Class:
@@ -43,13 +44,13 @@ class Class:
     def __repr__(self) -> str:
         return str(self)
 
-def parseCalendar(ics: str) -> list:
+def parseCalendar(ics: str) -> List[Class]:
     summaries = set()
 
     calendar: Calendar = Calendar.from_ical(ics)
     for component in calendar.walk():
         if component.name == "VEVENT":
-            summary = str(component.get("SUMMARY"))
+            summary = str(component.get("SUMMARY")).strip()
             summaries.add(summary)
     
     classes = list()
