@@ -48,12 +48,13 @@ class CalendarAPI(APIView):
     authentication_classes = [TokenAuthentication,]
     permission_classes = [IsAuthenticated,]
 
+    def delete(self, request) -> Response:
+
+        Courses.objects.filter(uid=request.user).delete()
+
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
     def put(self, request) -> Response:
-        # Check request content type
-        # if request.content_type != "text/plain":
-        #     return Response({
-        #         "message": "Wrong or missing content type. Expects 'text/plain"
-        #     }, status=status.HTTP_400_BAD_REQUEST)
 
         try:
             classes = parseCalendar(request.body.decode('utf-8'))
@@ -69,7 +70,7 @@ class CalendarAPI(APIView):
             section = c.get_section()
             Courses.objects.get_or_create(course=course, section=section, uid=user)
         
-        return Response(status=status.HTTP_200_OK)
+        return Response(status=status.HTTP_201_CREATED)
         
 
 class RegisterAPI(APIView):
