@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import {
   Box,
+  Paper,
   Card,
   CardActionArea,
   CardContent,
@@ -29,8 +30,8 @@ export default function Match(props) {
 
   function displayClasses() {
     return matchDetails.classes.map((classInfo) => (
-      <Card sx={{ mb: '5px' }}>
-        <CardContent>
+      <Card sx={{ mb: '10px' }}>
+        <CardContent sx={{ padding: '5px' }}>
           <Typography key={classInfo.uid} variant="h6" color="#8FD14F">
             <b>{classInfo.subject}</b>
           </Typography>
@@ -64,13 +65,23 @@ export default function Match(props) {
         maxWidth="md"
       >
         <DialogTitle>
-          <Typography variant="h4" sx={{ fontWeight: 'bold' }} color="#49306B">{match.name}</Typography>
+          <Typography variant="h4" sx={{ fontWeight: 'bold', mt: '10px' }} color="#49306B">{match.name}</Typography>
         </DialogTitle>
-        <DialogContent>
-          <Typography variant="h4" className="match" sx={{ fontWeight: 'bold', mb: 2, textAlign: 'center' }} color="white">{`${match.percentage}% Match` }</Typography>
+        <DialogContent sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <Typography variant="h4" className="match" sx={{ fontWeight: 'bold', mb: 2 }} color="white">{`${match.percentage}% Match` }</Typography>
           <Typography variant="subtitle1">{`${match.contactType.toUpperCase()}: ${match.contactInfo}`}</Typography>
           <Typography variant="h6"><b>Matching Classes</b></Typography>
-          {matchDetails ? displayClasses() : null}
+          <Paper sx={{
+            backgroundColor: 'grey.100',
+            display: 'flex',
+            flexDirection: 'column',
+            width: '90%',
+            padding: '10px',
+            margin: 0,
+          }}
+          >
+            {matchDetails ? displayClasses() : null}
+          </Paper>
         </DialogContent>
       </Dialog>
     </Box>

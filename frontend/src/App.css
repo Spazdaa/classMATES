@@ -40,3 +40,14 @@ body {
     margin: 5px;
     border-radius: 10px;
 }
+
+.stripe {
+    z-index: -1;
+    background-color: #49306B;
+    height: 110vh;
+    width: 370px;
+    position:fixed;
+    padding: -20px;
+    left: -10px;
+    top: -10px;
+}

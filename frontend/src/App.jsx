@@ -17,6 +17,7 @@ function App() {
 
   return (
     <div className="App">
+      <div className="stripe" />
       <Box sx={{
         display: 'flex',
         justifyContent: 'space-between',
