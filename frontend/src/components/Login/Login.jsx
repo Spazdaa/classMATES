@@ -1,5 +1,5 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable linebreak-style */
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import 'core-js/stable';
