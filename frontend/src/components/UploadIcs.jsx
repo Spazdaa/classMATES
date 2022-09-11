@@ -10,6 +10,7 @@ export default function UploadIcs() {
     if (filename !== 'No file chosen') {
       reader.readAsText(filename);
       reader.onload = async (e) => {
+        await api.deleteIcs();
         await api.uploadIcs(e.target.result);
         window.location.reload();
       };
