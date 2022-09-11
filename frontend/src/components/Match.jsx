@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card, CardContent, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
+import api, { MatchInfo } from '../api/api';
 
 export class MatchInfo {
   constructor(uid, name, percentage, contactInfo, contactType) {

@@ -1,5 +1,14 @@
 // import axios from 'axios';
-import { MatchInfo } from '../components/Match';
+
+export class MatchInfo {
+  constructor(uid, name, percentage, contactInfo, contactType) {
+    this.uid = uid;
+    this.name = name;
+    this.percentage = percentage;
+    this.contactInfo = contactInfo;
+    this.contactType = contactType;
+  }
+}
 
 // const axiosClient = axios.create({
 //   baseUrl: 'http://localhost:8000',

@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Paper } from '@mui/material';
-import { Match, MatchInfo } from './Match';
+import Match from './Match';
+import { MatchInfo } from '../api/api';
 
 export default function MatchList(props) {
   const { matches } = props;
