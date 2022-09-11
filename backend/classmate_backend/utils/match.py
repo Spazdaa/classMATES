@@ -1,4 +1,5 @@
 from api.models import Courses
+from django.forms.models import model_to_dict
 import json
 from typing import List
 
@@ -24,7 +25,15 @@ class Match:
     def __repr__(self) -> str:
         return str(self)
 
-def match(user) -> List[Match]:
+def match(uid) -> List[Match]:
     # query the classes that the user takes
-    classes = Courses.objects.filter(uid = user)
+    classes = Courses.objects.filter(uid=uid)
+
+    # for each classes, query user taking the class
+    uClassNSec = set()
+    UClassOnly = set()
+    for c in classes:
+        Courses.objects.filter(course=c.course, section=c.section).values("uid")
+
+        Courses.objects.filter(course=c.course).exclude(section=c.section).values("uid")
     
