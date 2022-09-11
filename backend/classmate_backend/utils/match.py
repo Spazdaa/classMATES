@@ -41,25 +41,25 @@ class MatchClasses:
             "section": section
         }
 
-        self.matchesAllSec.append(json.dump(newClass))
+        self.matchesAllSec.append(newClass)
     
     def add_class_course_only(self, course: str) -> None:
         newClass = {
             "course": course
         }
 
-        self.matchesCourseOnly.append(json.dump(newClass))
+        self.matchesCourseOnly.append(newClass)
     
     def __str__(self) -> str:
         output = {
             "username": self.username,
             "contact_info": self.contact_info,
             "contact_type": self.contact_type,
-            "matched_classes_all_section": str(self.matchesAllSec),
-            "matched_classes_course_only": str(self.matchesCourseOnly)
+            "matched_classes_all_section": self.matchesAllSec,
+            "matched_classes_course_only": self.matchesCourseOnly
         }
 
-        return json.dump(output)
+        return json.dumps(output)
 
     def __repr__(self) -> str:
         return str(self)
