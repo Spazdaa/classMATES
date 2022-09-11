@@ -1,9 +1,25 @@
 import React from 'react';
+import './App.css';
+
+import Dashboard from './components/Dashboard/Dashboard';
+// import Logout from './components/Logout/Logout';
+import LoginRegisterTabbed from './components/LoginRegisterTabbed/LoginRegisterTabbed';
+import useToken from './components/App/useToken';
 
 function App() {
+  const { token, setToken } = useToken();
+
+  if (!token) {
+    return (
+      <LoginRegisterTabbed setToken={setToken} />
+    );
+  }
+
   return (
-    <div className="App">
-      <h1>Hello Jashwanth!</h1>
+    <div className="wrapper">
+      <div>
+        <Dashboard />
+      </div>
     </div>
   );
 }

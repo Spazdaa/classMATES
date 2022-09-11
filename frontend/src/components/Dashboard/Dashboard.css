@@ -1,0 +1,53 @@
+body {
+    font-family: 'Open Sans', sans-serif;
+    background-color: white;
+    padding: 10px;
+    overflow: hidden;
+    
+}
+
+/* custom scrollbar */
+::-webkit-scrollbar {
+    width: 20px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: #d6dee1;
+    border-radius: 20px;
+    border: 6px solid transparent;
+    background-clip: content-box;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #49306B;
+  }
+
+.mymatches {
+    padding: 0px;
+    margin: 0;
+    text-align: center;
+    max-height: 8vh;
+}
+
+.match {
+    background-color: #FF8966;
+    width: fit-content;
+    padding: 8px;
+    margin: 5px;
+    border-radius: 10px;
+}
+
+.stripe {
+    z-index: -1;
+    background-color: #49306B;
+    height: 110vh;
+    width: 370px;
+    position:fixed;
+    padding: -20px;
+    left: -10px;
+    top: -10px;
+}
