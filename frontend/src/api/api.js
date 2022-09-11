@@ -38,6 +38,32 @@ const api = {
     return response.data;
   },
 
+  async getMatchDetails(uid) {
+    // const response = await axiosClient.get(`/matches/${uid}`);
+    // eslint-disable-next-line no-console
+    console.log(uid);
+    const response = {
+      data: {
+        uid: '001',
+        name: 'John Doe',
+        percentage: 46,
+        contactInfo: 'johndoe@gmail.com',
+        contactType: 'email',
+        classes: [{
+          subject: 'Math',
+          number: 'MATH 101',
+          section: 'A',
+        },
+        {
+          subject: 'Computer Science',
+          number: 'CS 101',
+          section: 'A',
+        }],
+      },
+    };
+    return response.data;
+  },
+
   async uploadIcs() {
     // const response = await axiosClient.post('/upload');
     // eslint-disable-next-line no-console
