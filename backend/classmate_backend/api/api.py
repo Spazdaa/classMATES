@@ -1,4 +1,4 @@
-from rest_framework import viewsets, status
+from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.authtoken.models import Token
@@ -9,7 +9,7 @@ from utils.icalendarparser import parseCalendar
 from utils.match import match
 import uuid
 
-class CalendarViewSet(viewsets.ModelViewSet):
+class CalendarAPI(APIView):
     """
         API for uploading user calendar
     """
