@@ -1,19 +1,18 @@
 import React from 'react';
 import Card from '@mui/material/Card';
-import axios from 'axios';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import './MyInfo.css';
+import api from '../../api/api';
 
 export default function MyInfo() {
   const [post, setPost] = React.useState(null);
 
-  React.useEffect(() => {
-    axios.get('https://jsonplaceholder.typicode.com/users')
-      .then((response) => {
-        setPost(response.data);
-      });
-  });
+  React.useEffect(async () => {
+    await api.getMatchDetails('self').then((response) => {
+      setPost(JSON.parse(response));
+    });
+  }, []);
 
   if (!post) return null;
   return (
@@ -23,10 +22,10 @@ export default function MyInfo() {
           Welcome,
         </Typography>
         <Typography variant="h4" component="div" className="name">
-          <b>John Doe </b>
+          <b>{post.username}</b>
         </Typography>
         <Typography color="white">
-          My Contact info
+          {`${post.contact_type?.toUpperCase()}: ${post.contact_info}`}
         </Typography>
       </CardContent>
     </Card>
