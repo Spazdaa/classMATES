@@ -1,0 +1,48 @@
+.login {
+    align-items: center;
+    align-content: center;
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    background-image: url('http://www.gvntmc.com/wp-content/uploads/2016/07/Savin-NY-Website-Background-Web.jpg');
+    background-size: cover;
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+    padding-top: 20px;
+    left: 0;
+    top: 0;
+}
+
+.loginform {
+    text-align: center;
+}
+
+.submitbutton {
+    margin-top: 20px !important;
+}
+
+input {
+    border-radius: 10px;
+    /* border: solid; */
+    border: none;
+    /* border-color: #8FD14F; */
+    background-color: #d6dee1;
+    padding: 10px;
+}
+
+*:focus {
+    outline: none;
+}
+
+.logo {
+    font-family: 'Righteous', cursive;
+    font-size: 60px;
+    margin: 0;
+}
+
+h5 {
+    margin: 0;
+    margin-bottom: 15px;
+    color: #49306B;
+}
