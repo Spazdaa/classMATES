@@ -24,7 +24,7 @@ class MatchAPI(APIView):
         page = request.GET.get("page", None)
         size = request.GET.get("size", None)
         
-        matches = match(request.user)
+        matches = match(request.user.id)
         if (page == None or size == None):
             items = matches
         else:
@@ -61,10 +61,6 @@ class CalendarAPI(APIView):
             return Response({
                 "message": "wrong format for calendar file"
             }, status=status.HTTP_400_BAD_REQUEST)
-        except Exception as e:
-            return Response({
-                "error": e.args
-            }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
         user = request.user
         
