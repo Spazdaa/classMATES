@@ -56,7 +56,7 @@ class CalendarAPI(APIView):
             }, status=status.HTTP_400_BAD_REQUEST)
 
         try:
-            classes = parseCalendar(request.data)
+            classes = parseCalendar(str(request.data))
         except ValueError:
             return Response({
                 "message": "wrong format for calendar file"
