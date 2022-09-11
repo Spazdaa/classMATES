@@ -1,4 +1,4 @@
-from api.models import Courses
+from api.models import Courses, AppUsers, Contact
 from django.forms.models import model_to_dict
 import json
 from typing import List
@@ -25,15 +25,28 @@ class Match:
     def __repr__(self) -> str:
         return str(self)
 
-def match(uid) -> List[Match]:
+def match(ruid) -> List[Match]:
     # query the classes that the user takes
-    classes = Courses.objects.filter(uid=uid)
+    userClassesAllSec = Courses.objects.filter(uid=ruid).values("course", "section")
+    userClassesSecOnly = Courses.objects.filter(uid=ruid).values("course")
+    allUsers = AppUsers.objects.all()
 
-    # for each classes, query user taking the class
-    uClassNSec = set()
-    UClassOnly = set()
-    for c in classes:
-        Courses.objects.filter(course=c.course, section=c.section).values("uid")
+    returnList = list()
+    for user in allUsers:
+        commonClassesAllSec = Courses.objects.filter(uid=user).values("course", "section").intersection(userClassesAllSec)
+        commonClassesCourseOnly = Courses.objects.filter(uid=user).exclude(course__in=commonClassesAllSec.values("course")).intersection(userClassesSecOnly)
+        
+        if (commonClassesAllSec.count() > 0 or commonClassesCourseOnly.count() > 0):
+            percentage = ((commonClassesAllSec.count() * 2 + commonClassesCourseOnly.count()) / (userClassesAllSec.count() * 2)) * 100
+            percentage = min(100, percentage)
+            
+            # Get user contact info
+            contacts = model_to_dict(Contact.objects.get(uid=user))
+            contact_info = contacts["contact_info"]
+            contact_type = contacts["contact_type"]
 
-        Courses.objects.filter(course=c.course).exclude(section=c.section).values("uid")
+            match = Match(uid=user.pk, username=user.username, contact_info=contact_info, contact_type=contact_type, percentage=percentage)
+            returnList.append(match)
+
+    return returnList
     
