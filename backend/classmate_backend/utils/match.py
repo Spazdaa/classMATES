@@ -50,7 +50,7 @@ class MatchClasses:
 
         self.matchesCourseOnly.append(newClass)
     
-    def __str__(self) -> str:
+    def to_dict(self) -> dict:
         output = {
             "username": self.username,
             "contact_info": self.contact_info,
@@ -59,7 +59,10 @@ class MatchClasses:
             "matched_classes_course_only": self.matchesCourseOnly
         }
 
-        return json.dumps(output)
+        return output
+        
+    def __str__(self) -> str:
+        return json.dumps(self.to_dict())
 
     def __repr__(self) -> str:
         return str(self)

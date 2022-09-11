@@ -159,6 +159,4 @@ class UserAPI(APIView):
     def get(self, request: Request, uid: str):
 
         matchResult = matchClasses(requester_id=request.user.pk, user_id=uid)
-        # TODO: matched_classes
-
-        return Response(str(matchResult), status=status.HTTP_200_OK)
+        return Response(matchResult.to_dict(), status=status.HTTP_200_OK)
