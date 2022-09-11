@@ -19,7 +19,8 @@ export class MatchInfo {
 //   },
 // });
 
-axios.defaults.headers.common.Authorization = 'Token e18cb84266704dde8967712f127c16299cac48bd';
+const token = localStorage.getItem('token');
+axios.defaults.headers.common.Authorization = `Token ${JSON.parse(token).token || ''}`;
 
 const api = {
   async getMatches(page, size) {
