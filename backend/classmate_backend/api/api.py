@@ -31,6 +31,14 @@ class MatchAPI(APIView):
             paginator = Paginator(matches, size)
             items = paginator.get_page(page).object_list
 
+        lists = str([str(i) for i in matches])
+
+        return Response({
+            "page": str(page),
+            "size": str(size),
+            "list": lists
+        }, status=status.HTTP_200_OK)
+
 
 class CalendarAPI(APIView):
     """
