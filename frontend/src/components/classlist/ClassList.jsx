@@ -1,18 +1,17 @@
 import React from 'react';
-import axios from 'axios';
-import { Paper } from '@mui/material';
+import { Box, Paper } from '@mui/material';
 import Class from './Class';
 import './ClassList.css';
+import api from '../../api/api';
 
 export default function ClassList() {
   const [post, setPost] = React.useState(null);
 
-  React.useEffect(() => {
-    axios.get('https://jsonplaceholder.typicode.com/users')
-      .then((response) => {
-        setPost(response.data);
-      });
-  });
+  React.useEffect(async () => {
+    await api.getMatchDetails('self').then((response) => {
+      setPost(JSON.parse(response));
+    });
+  }, []);
 
   if (!post) return null;
 
@@ -28,11 +27,13 @@ export default function ClassList() {
           width: '100%',
         }}
       >
-        <box>
+        <Box>
           {
-          post.slice(0, 6).map((myClass) => <Class name={myClass.name} lec={myClass.username} />)
+          post.matched_classes_all_section?.map(
+            (myClass) => <Class name={myClass.course} lec={myClass.section} />,
+          )
         }
-        </box>
+        </Box>
       </Paper>
     </>
   );
