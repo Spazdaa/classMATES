@@ -72,8 +72,11 @@ async function registerUser(credentials) {
 export default function LoginRegisterTabbed({ setToken }) {
   const [value, setValue] = React.useState(0);
 
+  const [error, setError] = useState(false);
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
+    setError(false);
   };
 
   const [username, setUserName] = useState();
@@ -83,8 +86,6 @@ export default function LoginRegisterTabbed({ setToken }) {
   const [contact_type, setContactType] = useState();
   // eslint-disable-next-line camelcase
   const [contact_info, setContactInfo] = useState();
-
-  const [error, setError] = useState(false);
 
   const handleSubmitLogin = async (e) => {
     e.preventDefault();
