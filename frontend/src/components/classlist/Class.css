@@ -1,0 +1,15 @@
+.card {
+    margin-bottom: 7px;
+    width: 90%;
+    margin: 8px;
+    padding: 5px;
+    height: fit-content;
+}
+
+.content {
+    padding: 0px !important;
+}
+
+.classheader {
+    color:#8FD14F;
+}

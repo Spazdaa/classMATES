@@ -1,26 +1,81 @@
-from rest_framework import viewsets, status
+from django.core.paginator import Paginator
+from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.authtoken.models import Token
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.request import Request
 from rest_framework.response import Response
-from api.models import AppUsers, Contact
-from utils.icalendarparser import Class, parseCalendar
+from api.models import AppUsers, Contact, Courses
+from utils.icalendarparser import parseCalendar
+from utils.match import match
 import uuid
 
-class ClassViewSet(viewsets.ModelViewSet):
-    authentication_classes = (TokenAuthentication,)
+class MatchAPI(APIView):
+    """
+        API for getting matches
+    """
+    
+    authentication_classes = [TokenAuthentication,]
+    permission_classes = [IsAuthenticated,]
 
-    def put(self, request: Request) -> Response:
+    def get(self, request: Request):
+
+        page = request.GET.get("page", None)
+        size = request.GET.get("size", None)
+        
+        matches = match(request.user.id)
+        if (page == None or size == None):
+            items = matches
+        else:
+            paginator = Paginator(matches, size)
+            items = paginator.get_page(page).object_list
+
+        lists = str([str(i) for i in matches])
+
+        return Response({
+            "page": str(page),
+            "size": str(size),
+            "list": lists
+        }, status=status.HTTP_200_OK)
+
+
+class CalendarAPI(APIView):
+    """
+        API for uploading user calendar
+    """
+    
+    authentication_classes = [TokenAuthentication,]
+    permission_classes = [IsAuthenticated,]
+
+    def put(self, request) -> Response:
         # Check request content type
-        if request.content_type != "text/calendar":
+        # if request.content_type != "text/plain":
+        #     return Response({
+        #         "message": "Wrong or missing content type. Expects 'text/plain"
+        #     }, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            classes = parseCalendar(request.body.decode('utf-8'))
+        except ValueError:
             return Response({
-                "message": "Wrong or missing content type. Expects 'text/calendar/"
+                "message": "wrong format for calendar file"
             }, status=status.HTTP_400_BAD_REQUEST)
 
-        parseCalendar(request.data)
+        user = request.user
+        
+        for c in classes:
+            course = c.get_course()
+            section = c.get_section()
+            Courses.objects.get_or_create(course=course, section=section, uid=user)
+        
+        return Response(status=status.HTTP_200_OK)
+        
 
 class RegisterAPI(APIView):
+    """
+        API for registering new user.
+    """
 
     def post(self, request: Request, *args, **kwargs) -> Response:
         if not self.__checkFieldsValid(requestData=request.data):
@@ -64,6 +119,9 @@ class RegisterAPI(APIView):
         return not AppUsers.objects.filter(username=username).exists()
 
 class LoginAPI(APIView):
+    """
+        API for loggin in existing users.
+    """
 
     def post(self, request: Request, *args, **kwargs) -> Response:
         if not self.__checkFieldsValid(requestData=request.data):

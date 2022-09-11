@@ -1,21 +1,39 @@
 from api.models import Courses
-from api.models import AppUsers
+from django.forms.models import model_to_dict
+import json
+from typing import List
 
-def match(id):
-    #query the matching class
-    classes = Courses.objects.filter(uid = id)
-    #query corresponding users
-    t2_match = Courses.objects.filter(courses=classes.course())
-    t2_match = Courses.objects.exclude(uid=id)
-    #query the matching sections
-    t2_match_users = AppUsers.filter(uid = t1_match.uid)
-
-    #query to get matching setions
-    t1_match = t2_match.filter(section = classes.section)
-    #query the matching sections
-    t1_match_users = AppUsers.filter(uid = t1_match.uid)
-    t2_match_users = t2_match.filter(t1_match_users)
-    return t1_match_users,t2_match_users
+class Match:
+    def __init__(self, uid, username, contact_info, contact_type, percentage) -> None:
+        self.uid = uid
+        self.username = username
+        self.contact_info = contact_info
+        self.contact_type = contact_type
+        self.percentage = percentage
     
+    def __str__(self) -> str:
+        itemDict = {
+            "uid": self.uid,
+            "username": self.username,
+            "contact_info": self.contact_info,
+            "contact_type": self.contact_type,
+            "percentage": self.percentage,
+        }
 
+        return json.dumps(itemDict)
+    
+    def __repr__(self) -> str:
+        return str(self)
 
+def match(uid) -> List[Match]:
+    # query the classes that the user takes
+    classes = Courses.objects.filter(uid=uid)
+
+    # for each classes, query user taking the class
+    uClassNSec = set()
+    UClassOnly = set()
+    for c in classes:
+        Courses.objects.filter(course=c.course, section=c.section).values("uid")
+
+        Courses.objects.filter(course=c.course).exclude(section=c.section).values("uid")
+    
