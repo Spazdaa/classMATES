@@ -41,6 +41,7 @@ function App() {
           justifyContent: 'space-between',
         }}
         >
+          <h2 className="mymatches">My Matches</h2>
           <MatchList matches={matches} />
           <UploadIcs />
         </Box>

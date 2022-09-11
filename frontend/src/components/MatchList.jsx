@@ -13,7 +13,7 @@ export default function MatchList(props) {
       flexDirection: 'column',
       marginLeft: '20px',
       width: '98%',
-      height: '82%',
+      height: '75%',
       overflowY: 'scroll',
       '&::-webkit-scrollbar': {
         display: null,

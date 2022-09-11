@@ -29,10 +29,10 @@ export default function Match(props) {
 
   function displayClasses() {
     return matchDetails.classes.map((classInfo) => (
-      <Card>
+      <Card sx={{ mb: '5px' }}>
         <CardContent>
-          <Typography key={classInfo.uid} variant="body2" color="text.secondary">
-            {classInfo.subject}
+          <Typography key={classInfo.uid} variant="h6" color="#8FD14F">
+            <b>{classInfo.subject}</b>
           </Typography>
           <Typography key={classInfo.uid} variant="body2" color="text.secondary">
             {classInfo.number}
@@ -50,8 +50,8 @@ export default function Match(props) {
       <Card elevation={2} sx={{ m: 2 }}>
         <CardActionArea onClick={() => setMatchOpen(true)}>
           <CardContent>
-            <Typography variant="h4" sx={{ fontWeight: 'bold' }}>{match.name}</Typography>
-            <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 2 }}>{`${match.percentage}% Match` }</Typography>
+            <Typography variant="h4" sx={{ fontWeight: 'bold' }} color="#49306B">{match.name}</Typography>
+            <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 2 }} color="white" className="match">{`${match.percentage}% Match` }</Typography>
             <Typography variant="subtitle1">{`${match.contactType.toUpperCase()}: ${match.contactInfo}`}</Typography>
           </CardContent>
         </CardActionArea>
@@ -64,12 +64,12 @@ export default function Match(props) {
         maxWidth="md"
       >
         <DialogTitle>
-          <Typography variant="h4" sx={{ fontWeight: 'bold' }}>{match.name}</Typography>
+          <Typography variant="h4" sx={{ fontWeight: 'bold' }} color="#49306B">{match.name}</Typography>
         </DialogTitle>
         <DialogContent>
-          <Typography variant="h4" sx={{ fontWeight: 'bold', mb: 2 }}>{`${match.percentage}% Match` }</Typography>
+          <Typography variant="h4" className="match" sx={{ fontWeight: 'bold', mb: 2, textAlign: 'center' }} color="white">{`${match.percentage}% Match` }</Typography>
           <Typography variant="subtitle1">{`${match.contactType.toUpperCase()}: ${match.contactInfo}`}</Typography>
-          <Typography variant="subtitle1">Matching Classes:</Typography>
+          <Typography variant="h6"><b>Matching Classes</b></Typography>
           {matchDetails ? displayClasses() : null}
         </DialogContent>
       </Dialog>
