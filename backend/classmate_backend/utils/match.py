@@ -108,9 +108,9 @@ def matchClasses(requester_id, user_id) -> MatchClasses:
         mc = MatchClasses(uid=str(requester_id), username=username, contact_info="None", contact_type="None")
 
     for c in commonClassesAllSec:
-        mc.add_class_all_sec_match(course=c.course, section=c.section)
+        mc.add_class_all_sec_match(course=c["course"], section=c["section"])
 
     for c in commonClassesCourseOnly:
-        mc.add_class_course_only(course=c.course)
+        mc.add_class_course_only(course=c["course"])
 
     return mc
