@@ -8,7 +8,7 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 from api.models import AppUsers, Contact, Courses
 from utils.icalendarparser import parseCalendar
-from utils.match import matchPercent, matchClasses
+from utils.match import match
 import uuid
 
 class MatchAPI(APIView):
@@ -24,7 +24,7 @@ class MatchAPI(APIView):
         page = request.GET.get("page", None)
         size = request.GET.get("size", None)
         
-        matches = matchPercent(request.user.pk)
+        matches = match(request.user.id)
         if (page == None or size == None):
             items = matches
         else:
@@ -146,18 +146,3 @@ class LoginAPI(APIView):
         expected_fields = {"username", "password"}
 
         return expected_fields.issubset(requestData.keys())
-
-class UserAPI(APIView):
-    """
-        API for getting user details
-    """
-    
-    authentication_classes = [TokenAuthentication,]
-    permission_classes = [IsAuthenticated,]
-
-    def get(self, request: Request, uid: str):
-
-        matchResult = matchClasses(requester_id=request.user.pk, user_id=uid)
-        # TODO: matched_classes
-
-        return Response(str(matchResult), status=status.HTTP_200_OK)

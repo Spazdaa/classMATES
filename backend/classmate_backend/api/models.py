@@ -17,5 +17,3 @@ class Courses(models.Model):
     uid = models.ForeignKey(AppUsers, on_delete=models.CASCADE)
     section = models.CharField(max_length=20)
     course = models.CharField(max_length=20)
-    models.UniqueConstraint(fields=['uid', 'section', 'course'], name='unique_course')
-    
