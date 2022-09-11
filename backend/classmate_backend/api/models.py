@@ -1,3 +1,4 @@
+import uuid
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
@@ -12,7 +13,7 @@ class Contact(models.Model):
     models.UniqueConstraint(fields=['uid', 'contact_id'], name='unique_contact')
 
 class Courses(models.Model):
-    id = models.UUIDField(primary_key=True)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4)
     uid = models.ForeignKey(AppUsers, on_delete=models.CASCADE)
     section = models.CharField(max_length=20)
     course = models.CharField(max_length=20)
