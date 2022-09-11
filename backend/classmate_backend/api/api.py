@@ -16,15 +16,15 @@ class MatchAPI(APIView):
         API for getting matches
     """
     
-    authentication_classes = (TokenAuthentication,)
-    permission_classes = (IsAuthenticated)
+    authentication_classes = [TokenAuthentication,]
+    permission_classes = [IsAuthenticated,]
 
     def get(self, request: Request):
 
         page = request.GET.get("page", None)
         size = request.GET.get("size", None)
         
-        matches = match()
+        matches = match(request.user)
         if (page == None or size == None):
             items = matches
         else:
@@ -37,8 +37,8 @@ class CalendarAPI(APIView):
         API for uploading user calendar
     """
     
-    authentication_classes = (TokenAuthentication,)
-    permission_classes = (IsAuthenticated)
+    authentication_classes = [TokenAuthentication,]
+    permission_classes = [IsAuthenticated,]
 
     def put(self, request: Request) -> Response:
         # Check request content type
