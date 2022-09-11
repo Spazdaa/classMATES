@@ -8,7 +8,7 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 from api.models import AppUsers, Contact, Courses
 from utils.icalendarparser import parseCalendar
-from utils.match import matchPercent
+from utils.match import matchPercent, matchClasses
 import uuid
 
 class MatchAPI(APIView):
@@ -157,14 +157,7 @@ class UserAPI(APIView):
 
     def get(self, request: Request, uid: str):
 
-        username = AppUsers.objects.get(uid=uid).username
-        contact_info = Contact.objects.get(uid=uid).contact_info
-        contact_type = Contact.objects.get(uid=uid).contact_type
+        matchResult = matchClasses(requester_id=request.user.pk, user_id=uid)
         # TODO: matched_classes
 
-        return Response({
-            "username": str(username),
-            "contact_info": str(contact_info),
-            "contact_type": str(contact_type),
-            "matched_classes": str(None)
-        }, status=status.HTTP_200_OK)
+        return Response(str(matchResult), status=status.HTTP_200_OK)
