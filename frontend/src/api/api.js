@@ -37,6 +37,12 @@ const api = {
     const response = await axios.put('http://localhost:8000/upload', body);
     return response.data;
   },
+
+  async deleteIcs() {
+    setToken();
+    const response = await axios.delete('http://localhost:8000/upload');
+    return response.data;
+  },
 };
 
 export default api;

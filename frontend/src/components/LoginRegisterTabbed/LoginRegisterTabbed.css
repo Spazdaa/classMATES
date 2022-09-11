@@ -1,0 +1,64 @@
+.login {
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    background-image: url('https://cdn.discordapp.com/attachments/1017844863435284611/1018564381484777472/Frame_1_1.png');
+    background-size: cover;
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+    padding-top: 20px;
+    left: 0;
+    top: 0;
+}
+
+.logincard {
+    padding: 30px;
+    left: 20px;
+    width: fit-content;
+    height: 85vh;
+    margin-left: 50px;
+    text-align: center;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.loginform {
+    text-align: center;
+}
+
+.submitbutton {
+    margin-top: 20px !important;
+}
+
+input {
+    border-radius: 10px;
+    /* border: solid; */
+    border: none;
+    /* border-color: #8FD14F; */
+    background-color: #d6dee1;
+    padding: 10px;
+}
+
+*:focus {
+    outline: none;
+}
+
+.logo {
+    font-family: 'Righteous', cursive;
+    font-size: 70px;
+    margin: 0;
+}
+
+h5 {
+    margin: 0;
+    margin-bottom: 15px;
+    color: #49306B;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    
+}

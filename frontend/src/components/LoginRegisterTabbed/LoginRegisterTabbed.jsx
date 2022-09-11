@@ -8,6 +8,8 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import './LoginRegisterTabbed.css';
+import { Button, Paper } from '@mui/material';
 
 function TabPanel(props) {
   const {
@@ -70,12 +72,16 @@ async function registerUser(credentials) {
 export default function LoginRegisterTabbed({ setToken }) {
   const [value, setValue] = React.useState(0);
 
+  const [error, setError] = useState(false);
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
+    setError(false);
   };
 
   const [username, setUserName] = useState();
   const [password, setPassword] = useState();
+  const [confirmPassword, setConfirmPassword] = useState();
   // eslint-disable-next-line camelcase
   const [contact_type, setContactType] = useState();
   // eslint-disable-next-line camelcase
@@ -87,68 +93,125 @@ export default function LoginRegisterTabbed({ setToken }) {
       username,
       password,
     });
-    setToken(token);
+
+    if (token.message) {
+      setError(true);
+    } else {
+      setToken(token);
+      setError(false);
+    }
   };
 
   const handleSubmitRegister = async (e) => {
     e.preventDefault();
-    const token = await registerUser({
-      username,
-      password,
-      contact_type,
-      contact_info,
-    });
-    setToken(token);
+    if (password === confirmPassword) {
+      const token = await registerUser({
+        username,
+        password,
+        contact_type,
+        contact_info,
+      });
+
+      if (token.message) {
+        setError(true);
+      } else {
+        setToken(token);
+        setError(false);
+      }
+    } else {
+      setError(true);
+    }
   };
 
+  const taglines = ['Please Don\'t Use Us as a Dating App', 'We Are Definitely Not Tinder for Students', 'Find, uh, Friends. Yes. Just Friends.', 'Find Friends in the Same Classes!', 'If You Want to Date, Please Use eClass', 'Our Name is NOT an Innuendo'];
+  const random = Math.floor(Math.random() * taglines.length);
+  const tagline = taglines[random];
+
   return (
-    <Box sx={{ width: '100%' }}>
-      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-          <Tab label="Login" {...a11yProps(0)} />
-          <Tab label="Sign Up" {...a11yProps(1)} />
-        </Tabs>
-      </Box>
-      <TabPanel value={value} index={0}>
-        <h1>Please Log In</h1>
-        <form onSubmit={handleSubmitLogin}>
-          <label>
-            <p>Username</p>
-            <input type="text" onChange={(e) => setUserName(e.target.value)} />
-          </label>
-          <label>
-            <p>Password</p>
-            <input type="password" onChange={(e) => setPassword(e.target.value)} />
-          </label>
-          <div>
-            <button type="submit">Log in</button>
-          </div>
-        </form>
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-        <h1>Please Sign up</h1>
-        <form onSubmit={handleSubmitRegister}>
-          <label>
-            <p>Username</p>
-            <input type="text" onChange={(e) => setUserName(e.target.value)} />
-          </label>
-          <label>
-            <p>Password</p>
-            <input type="password" onChange={(e) => setPassword(e.target.value)} />
-          </label>
-          <label>
-            <p>Contact Type</p>
-            <input type="text" onChange={(e) => setContactType(e.target.value)} />
-          </label>
-          <label>
-            <p>Contact Info</p>
-            <input type="text" onChange={(e) => setContactInfo(e.target.value)} />
-          </label>
-          <div>
-            <button type="submit">Sign up</button>
-          </div>
-        </form>
-      </TabPanel>
+    <Box sx={{ width: '100%' }} className="login">
+      <Paper className="logincard" sx={{ boxShadow: 5 }}>
+        <h1 className="logo">
+          Class
+          <span style={{ color: '#8FD14F' }}>MATES</span>
+        </h1>
+        <h5>{tagline}</h5>
+        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+          <Tabs centered value={value} onChange={handleChange} aria-label="basic tabs example" textColor="#8FD14F" TabIndicatorProps={{ style: { backgroundColor: '#8FD14F' } }}>
+            <Tab label="Login" {...a11yProps(0)} />
+            <Tab label="Sign Up" {...a11yProps(1)} />
+          </Tabs>
+        </Box>
+        <TabPanel value={value} index={0}>
+          <h2>Please Log In</h2>
+          {error && <Typography variant="subtitle2" color="red">Error</Typography>}
+          <form onSubmit={handleSubmitLogin} className="loginform">
+            <label>
+              <p>Username</p>
+              <input type="text" onChange={(e) => setUserName(e.target.value)} />
+            </label>
+            <label>
+              <p>Password</p>
+              <input type="password" onChange={(e) => setPassword(e.target.value)} />
+            </label>
+            <div>
+              <Button
+                type="submit"
+                variant="contained"
+                className="submitbutton"
+                sx={{
+                  backgroundColor: '#FF8966',
+                  ':hover': {
+                    bgcolor: '#49306B',
+                  },
+                }}
+              >
+                Log in
+              </Button>
+            </div>
+          </form>
+        </TabPanel>
+        <TabPanel value={value} index={1}>
+          <h2>Please Sign up</h2>
+          {error && <Typography variant="subtitle2" color="red">Error</Typography>}
+          <form onSubmit={handleSubmitRegister} className="loginform">
+            <label>
+              <p>Username</p>
+              <input type="text" onChange={(e) => setUserName(e.target.value)} />
+            </label>
+            <label>
+              <p>Password</p>
+              <input type="password" onChange={(e) => setPassword(e.target.value)} />
+            </label>
+            <label>
+              <p>Confirm Password</p>
+              <input type="password" onChange={(e) => setConfirmPassword(e.target.value)} />
+            </label>
+            <label>
+              <p>Contact Type</p>
+              <input type="text" onChange={(e) => setContactType(e.target.value)} />
+            </label>
+            <label>
+              <p>Contact Info</p>
+              <input type="text" onChange={(e) => setContactInfo(e.target.value)} />
+            </label>
+            <div>
+              <Button
+                type="submit"
+                variant="contained"
+                className="submitbutton"
+                sx={{
+                  backgroundColor: '#FF8966',
+                  ':hover': {
+                    bgcolor: '#49306B',
+                  },
+                }}
+              >
+                Sign up
+              </Button>
+            </div>
+          </form>
+        </TabPanel>
+      </Paper>
     </Box>
   );
 }
