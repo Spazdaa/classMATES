@@ -14,7 +14,7 @@ export default function UploadIcs() {
       reader.onload = async (e) => {
         // eslint-disable-next-line no-console
         console.log(e.target.result);
-        await api.uploadIcs();
+        await api.uploadIcs(e.target.result);
       };
     }
   }, [filename]);

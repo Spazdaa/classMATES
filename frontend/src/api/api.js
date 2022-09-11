@@ -1,4 +1,4 @@
-// import axios from 'axios';
+import axios from 'axios';
 
 export class MatchInfo {
   constructor(uid, name, percentage, contactInfo, contactType) {
@@ -11,12 +11,19 @@ export class MatchInfo {
 }
 
 // const axiosClient = axios.create({
-//   baseUrl: 'http://localhost:8000',
+//   baseUrl: '/',
+//   headers: {
+//     Accept: 'application/json',
+//     'Content-Type': 'application/json',
+//     Authorization: 'Token e18cb84266704dde8967712f127c16299cac48bd',
+//   },
 // });
+
+axios.defaults.headers.common.Authorization = 'Token e18cb84266704dde8967712f127c16299cac48bd';
 
 const api = {
   async getMatches(page, size) {
-    // const response = await axiosClient.get('/matches', params={page, size});
+    // const response = await axios.get('http://localhost:8000/matches', params={page, size});
     // eslint-disable-next-line no-console
     console.log(page, size);
     const response = {
@@ -39,7 +46,7 @@ const api = {
   },
 
   async getMatchDetails(uid) {
-    // const response = await axiosClient.get(`/matches/${uid}`);
+    // const response = await axios.get(`http://localhost:8000/matches/${uid}`);
     // eslint-disable-next-line no-console
     console.log(uid);
     const response = {
@@ -64,10 +71,9 @@ const api = {
     return response.data;
   },
 
-  async uploadIcs() {
-    // const response = await axiosClient.post('/upload');
-    // eslint-disable-next-line no-console
-    console.log('upload ics');
+  async uploadIcs(body) {
+    const response = await axios.put('http://localhost:8000/upload', body);
+    return response.data;
   },
 };
 
