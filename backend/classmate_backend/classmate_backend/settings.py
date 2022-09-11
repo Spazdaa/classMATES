@@ -27,13 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-CORS_ALLOWED_ORIGINS = [
-    'http://localhost',
-]
-
-CSRF_TRUSTED_ORIGINS = [
-    'http://localhost',
-]
+CORS_ALLOW_ALL_ORIGIN = True
 
 AUTH_USER_MODEL = 'api.AppUsers'
 # Application definition
