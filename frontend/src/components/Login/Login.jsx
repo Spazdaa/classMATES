@@ -1,10 +1,11 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable linebreak-style */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import 'core-js/stable';
 
 async function loginUser(credentials) {
-  return fetch('http://localhost:8090/login', {
+  return fetch('http://127.0.0.1:8000/login', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
