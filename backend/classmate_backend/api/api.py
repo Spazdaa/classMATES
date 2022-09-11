@@ -31,7 +31,7 @@ class MatchAPI(APIView):
             paginator = Paginator(matches, size)
             items = paginator.get_page(page).object_list
 
-        lists = str([str(i) for i in matches])
+        lists = [str(i) for i in matches]
 
         return Response({
             "page": str(page),
