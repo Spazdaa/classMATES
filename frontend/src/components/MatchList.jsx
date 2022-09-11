@@ -43,7 +43,7 @@ export default function MatchList() {
             display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: 'auto', mb: 2,
           }}
         >
-          <Typography variant="h5">Upload your .ics file from BearTracks first!</Typography>
+          <Typography variant="h5"><b>Upload your .ics file from BearTracks first!</b></Typography>
           <KeyboardDoubleArrowDownIcon />
         </Box>
       )}
