@@ -7,6 +7,7 @@ import ClassList from '../classlist/ClassList';
 import UploadIcs from '../UploadIcs';
 import MyInfo from '../myinfo/MyInfo';
 import MatchList from '../MatchList';
+import Logout from '../Logout/Logout';
 
 export default function Dashboard() {
   const [matches, setMatches] = useState([]);
@@ -31,6 +32,7 @@ export default function Dashboard() {
           paddingTop: '0px',
         }}
         >
+          <Logout />
           <MyInfo />
           <ClassList />
         </Box>
