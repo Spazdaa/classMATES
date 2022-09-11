@@ -34,10 +34,11 @@ def match(ruid) -> List[Match]:
     returnList = list()
     for user in allUsers:
         commonClassesAllSec = Courses.objects.filter(uid=user).values("course", "section").intersection(userClassesAllSec)
-        commonClassesCourseOnly = Courses.objects.filter(uid=user).exclude(course__in=commonClassesAllSec.values("course")).intersection(userClassesSecOnly)
+        excludeCourses = set(commonClassesAllSec.values_list("course", flat=True))
+        commonClassesCourseOnly = Courses.objects.filter(uid=user).values("course").exclude(course__in=excludeCourses).intersection(userClassesSecOnly)
         
-        if (commonClassesAllSec.count() > 0 or commonClassesCourseOnly.count() > 0):
-            percentage = ((commonClassesAllSec.count() * 2 + commonClassesCourseOnly.count()) / (userClassesAllSec.count() * 2)) * 100
+        if (len(commonClassesAllSec) > 0 or len(commonClassesCourseOnly) > 0):
+            percentage = ((len(commonClassesAllSec) * 2 + len(commonClassesCourseOnly)) / (len(userClassesAllSec) * 2)) * 100
             percentage = min(100, percentage)
             
             # Get user contact info
@@ -45,7 +46,7 @@ def match(ruid) -> List[Match]:
             contact_info = contacts["contact_info"]
             contact_type = contacts["contact_type"]
 
-            match = Match(uid=user.pk, username=user.username, contact_info=contact_info, contact_type=contact_type, percentage=percentage)
+            match = Match(uid=str(user.pk), username=user.username, contact_info=contact_info, contact_type=contact_type, percentage=percentage)
             returnList.append(match)
 
     return returnList
