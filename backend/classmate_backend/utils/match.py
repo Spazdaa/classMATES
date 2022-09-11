@@ -2,7 +2,6 @@ from api.models import Courses, AppUsers, Contact
 from django.forms.models import model_to_dict
 import json
 from typing import List
-from utils.icalendarparser import Class
 
 class MatchPercentage:
     def __init__(self, uid: str, username: str, contact_info: str, contact_type: str, percentage: str) -> None:
