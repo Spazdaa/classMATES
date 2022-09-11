@@ -10,7 +10,7 @@ export default function MyInfo() {
 
   React.useEffect(async () => {
     await api.getMatchDetails('self').then((response) => {
-      setPost(JSON.parse(response));
+      setPost(response);
     });
   }, []);
 

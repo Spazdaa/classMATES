@@ -25,7 +25,7 @@ export default function Match(props) {
   }, [matchOpen]);
 
   function displayClasses() {
-    return JSON.parse(matchDetails).matched_classes_all_section.map((classInfo) => (
+    return matchDetails.matched_classes_all_section.map((classInfo) => (
       <Card sx={{ mb: '10px' }}>
         <CardContent sx={{ padding: '5px' }}>
           <Typography key={classInfo.uid} variant="h6" color="#8FD14F">
