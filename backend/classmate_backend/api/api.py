@@ -146,3 +146,25 @@ class LoginAPI(APIView):
         expected_fields = {"username", "password"}
 
         return expected_fields.issubset(requestData.keys())
+
+class UserAPI(APIView):
+    """
+        API for getting user details
+    """
+    
+    authentication_classes = [TokenAuthentication,]
+    permission_classes = [IsAuthenticated,]
+
+    def get(self, request: Request, uid: str):
+
+        username = AppUsers.objects.get(uid=uid).username
+        contact_info = Contact.objects.get(uid=uid).contact_info
+        contact_type = Contact.objects.get(uid=uid).contact_type
+        # TODO: matched_classes
+
+        return Response({
+            "username": str(username),
+            "contact_info": str(contact_info),
+            "contact_type": str(contact_type),
+            "matched_classes": str(None)
+        }, status=status.HTTP_200_OK)
