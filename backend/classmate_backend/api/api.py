@@ -50,10 +50,10 @@ class CalendarAPI(APIView):
 
     def put(self, request: Request) -> Response:
         # Check request content type
-        if request.content_type != "text/plain":
-            return Response({
-                "message": "Wrong or missing content type. Expects 'text/plain"
-            }, status=status.HTTP_400_BAD_REQUEST)
+        # if request.content_type != "text/plain":
+        #     return Response({
+        #         "message": "Wrong or missing content type. Expects 'text/plain"
+        #     }, status=status.HTTP_400_BAD_REQUEST)
 
         try:
             classes = parseCalendar(str(request.data))
