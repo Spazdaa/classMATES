@@ -161,5 +161,4 @@ class UserAPI(APIView):
         if uid == "self":
             uid = request.user.pk
         matchResult = matchClasses(requester_id=request.user.pk, user_id=uid)
-
-        return Response(str(matchResult), status=status.HTTP_200_OK)
+        return Response(matchResult.to_dict(), status=status.HTTP_200_OK)

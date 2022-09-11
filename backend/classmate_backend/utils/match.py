@@ -2,7 +2,6 @@ from api.models import Courses, AppUsers, Contact
 from django.forms.models import model_to_dict
 import json
 from typing import List
-from utils.icalendarparser import Class
 
 class MatchPercentage:
     def __init__(self, uid: str, username: str, contact_info: str, contact_type: str, percentage: str) -> None:
@@ -50,7 +49,7 @@ class MatchClasses:
 
         self.matchesCourseOnly.append(newClass)
     
-    def __str__(self) -> str:
+    def to_dict(self) -> dict:
         output = {
             "username": self.username,
             "contact_info": self.contact_info,
@@ -59,7 +58,10 @@ class MatchClasses:
             "matched_classes_course_only": self.matchesCourseOnly
         }
 
-        return json.dumps(output)
+        return output
+        
+    def __str__(self) -> str:
+        return json.dumps(self.to_dict())
 
     def __repr__(self) -> str:
         return str(self)

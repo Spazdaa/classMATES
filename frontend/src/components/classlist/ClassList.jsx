@@ -9,7 +9,7 @@ export default function ClassList() {
 
   React.useEffect(async () => {
     await api.getMatchDetails('self').then((response) => {
-      setPost(JSON.parse(response));
+      setPost(response);
     });
   }, []);
 
