@@ -25,8 +25,6 @@ export default function Match(props) {
   }, [matchOpen]);
 
   function displayClasses() {
-    // eslint-disable-next-line no-console
-    console.log(matchDetails);
     return matchDetails.matched_classes_all_section.map((classInfo) => (
       <Card sx={{ mb: '10px' }}>
         <CardContent sx={{ padding: '5px' }}>
