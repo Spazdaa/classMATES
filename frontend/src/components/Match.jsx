@@ -25,6 +25,8 @@ export default function Match(props) {
   }, [matchOpen]);
 
   function displayClasses() {
+    // eslint-disable-next-line no-console
+    console.log(matchDetails);
     return matchDetails.matched_classes_all_section.map((classInfo) => (
       <Card sx={{ mb: '10px' }}>
         <CardContent sx={{ padding: '5px' }}>
@@ -33,6 +35,18 @@ export default function Match(props) {
           </Typography>
           <Typography key={classInfo.uid} variant="body2" color="text.secondary">
             {classInfo.section}
+          </Typography>
+        </CardContent>
+      </Card>
+    ));
+  }
+
+  function displayCourses() {
+    return matchDetails.matched_classes_course_only.map((classInfo) => (
+      <Card sx={{ mb: '10px' }}>
+        <CardContent sx={{ padding: '5px' }}>
+          <Typography key={classInfo.uid} variant="h6" color="#8FD14F">
+            <b>{classInfo.course}</b>
           </Typography>
         </CardContent>
       </Card>
@@ -74,6 +88,7 @@ export default function Match(props) {
           }}
           >
             {matchDetails ? displayClasses() : null}
+            {matchDetails ? displayCourses() : null}
           </Paper>
         </DialogContent>
       </Dialog>
