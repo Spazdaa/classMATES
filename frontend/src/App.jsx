@@ -8,15 +8,18 @@ import {
 
 import Dashboard from './components/Dashboard/Dashboard';
 import Login from './components/Login/Login';
+import Logout from './components/Logout/Logout';
 import Preferences from './components/Preferences/Preferences';
 import useToken from './components/App/useToken';
-import Logout from './components/Logout/Logout';
 
 function App() {
   const { token, setToken } = useToken();
 
   if (!token) {
-    return <Login setToken={setToken} />;
+    return (
+      <Login setToken={setToken} />
+
+    );
   }
 
   return (
