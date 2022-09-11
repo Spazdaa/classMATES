@@ -3,7 +3,7 @@
     min-width: 300px;
     width: 100%;
     max-width: 40vh;
-    max-height: 30vh;
+    min-height: 25vh;
     height: fit-content;
     background: #8FD14F;
     word-break: break-all;

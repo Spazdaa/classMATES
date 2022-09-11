@@ -23,7 +23,7 @@ export default function MyInfo() {
           Welcome,
         </Typography>
         <Typography variant="h4" component="div" className="name">
-          <b>John Doe</b>
+          <b>John Doe </b>
         </Typography>
         <Typography color="white">
           My Contact info
