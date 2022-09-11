@@ -3,7 +3,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 
 class AppUsers(AbstractUser):
-    uid = models.UUIDField(primary_key=True)
+    uid = models.UUIDField(primary_key=True, default=uuid.uuid4)
 
 class Contact(models.Model):
     uid = models.ForeignKey(AppUsers, on_delete=models.CASCADE)
