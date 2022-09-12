@@ -1,4 +1,6 @@
-# classMATES
+# ClassMATES
+
+Upload your class schedule and find study partners with simillar schedules
 
 ### Screenshots
 ![firefox_2022-09-11_18-20-30](https://user-images.githubusercontent.com/6267244/189555652-6774050d-9f17-4b54-bfe3-a30d7d40db62.png)
