@@ -1,6 +1,7 @@
 # ClassMATES
 
 Upload your class schedule and find study partners with simillar schedules
+
 (background illustration credit: Vecteezy.com)
 
 ### Screenshots
